@@ -2,7 +2,15 @@ Multi-Admin-Order-Mail-Receiver module
 ==================
 
 This module adds the possibility for multiple admin order mail receivers to OXID eShop. 
-The additional receivers will be added as carbon copy entries to the regular admin order mail.
+
+### About the module
+Many customers have the problem that, the admin order mail address is bind to one single user.
+If the user is not reachable the order mails are also not reachable and no one can process the
+incoming orders. So This module adds the possibility to add multiple admin order mail receivers
+to the backend. The additional receivers will be added as carbon copy entries to the regular 
+admin order mail.
+
+![Image alt="preview of the module"](module-preview.png)
 
 ### Compatability
 
