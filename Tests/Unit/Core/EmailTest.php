@@ -80,4 +80,21 @@ class EmailTest extends UnitTestCase
         $this->assertSame('max@my-mail.com', $carbonCopies[0][0]);
         $this->assertSame('Max Muster', $carbonCopies[0][1]);
     }
+
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::setCarbonCopy
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::idnToAscii
+     */
+    public function testSetCarbonCopy_withNonValidData(): void
+    {
+        $this->expectException(\PHPMailer\PHPMailer\Exception::class);
+
+        $this->SUT->setCarbonCopy('This is no mail address', 'mail address');
+
+        $carbonCopies = $this->getProtectedClassProperty($this->SUT, '_aCarbonCopies');
+
+        $this->assertEmpty($carbonCopies);
+        $this->assertCount(0, $carbonCopies);
+    }
 }
