@@ -3,6 +3,7 @@
 namespace PaBlo\MultiOrderMailReceiver\Test\Unit\Core;
 
 
+use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use PaBlo\MultiOrderMailReceiver\Core\Email;
 
@@ -28,7 +29,9 @@ class EmailTest extends UnitTestCase
     {
         parent::setUp();
 
-        $this->SUT = $this->getMock(Email::class, ['__call']);
+        $this->SUT = $this->getMockBuilder(Email::class)
+            ->setMethods(['__call'])
+            ->getMock();
     }
 
     /**
@@ -96,5 +99,73 @@ class EmailTest extends UnitTestCase
 
         $this->assertEmpty($carbonCopies);
         $this->assertCount(0, $carbonCopies);
+    }
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::setCarbonCopyActive
+     */
+    public function testSetCarbonCopyActive_withInternalDefaultStateFalse(): void
+    {
+        $internalState = $this->getProtectedClassProperty($this->SUT, '_blCarbonCopyActiveState');
+        $this->assertFalse($internalState);
+    }
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::setCarbonCopyActive
+     * @throws \ReflectionException
+     */
+    public function testSetCarbonCopyActive_willSetInternalStateTrue(): void
+    {
+        $reflectedMethod = new \ReflectionMethod(Email::class, 'setCarbonCopyActive');
+        $reflectedMethod->setAccessible(true);
+
+        $reflectedMethod->invoke($this->SUT);
+
+        $internalState = $this->getProtectedClassProperty($this->SUT, '_blCarbonCopyActiveState');
+        $this->assertTrue($internalState);
+    }
+
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::getCarbonCopyActiveState
+     */
+    public function testGetCarbonCopyActive_willGetInternalStateFalse(): void
+    {
+        $reflectedGetter = new \ReflectionMethod(Email::class, 'getCarbonCopyActiveState');
+        $reflectedGetter->setAccessible(true);
+
+        $internalState = $reflectedGetter->invoke($this->SUT);
+        $this->assertFalse($internalState);
+    }
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::getCarbonCopyActiveState
+     * @throws \ReflectionException
+     */
+    public function testGetCarbonCopyActive_willGetInternalStateTrue(): void
+    {
+        $reflectedSetter = new \ReflectionMethod(Email::class, 'setCarbonCopyActive');
+        $reflectedSetter->setAccessible(true);
+
+        $reflectedGetter = new \ReflectionMethod(Email::class, 'getCarbonCopyActiveState');
+        $reflectedGetter->setAccessible(true);
+
+        $reflectedSetter->invoke($this->SUT);
+
+        $internalState = $reflectedGetter->invoke($this->SUT);
+        $this->assertTrue($internalState);
+    }
+
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::idnToAscii
+     * @throws \ReflectionException
+     */
+    public function testIdnToAscii_willReturnNormalString(): void
+    {
+        $reflectedMethod = new \ReflectionMethod(Email::class, 'idnToAscii');
+        $reflectedMethod->setAccessible(true);
+
+        $result = $reflectedMethod->invokeArgs($this->SUT, ['täst.de']);
+        $this->assertSame('xn--tst-qla.de', $result);
     }
 }
