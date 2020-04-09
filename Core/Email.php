@@ -126,7 +126,7 @@ class Email extends Email_parent
      *
      * @return string
      */
-    protected function idnToAscii($idn)
+    private function idnToAscii($idn)
     {
         if (function_exists('idn_to_ascii')) {
             // for old PHP versions support

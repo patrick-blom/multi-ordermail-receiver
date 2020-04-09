@@ -23,7 +23,7 @@ class MultiOrderMailReceiver
     {
         $dbMetaDataHandler = oxNew(DbMetaDataHandler::class);
 
-        if (!$dbMetaDataHandler->fieldExists('PBOWNEREMAILRECEIVER', 'oxshops')) {
+        if ( ! $dbMetaDataHandler->fieldExists('PBOWNEREMAILRECEIVER', 'oxshops')) {
             DatabaseProvider::getDb()->execute(
                 "ALTER TABLE oxshops ADD PBOWNEREMAILRECEIVER text NOT NULL default '' COMMENT 'Additional recipients for order owner mail';"
             );
@@ -36,13 +36,27 @@ class MultiOrderMailReceiver
     public static function onDeactivate(): void
     {
         $container = ContainerFactory::getInstance()->getContainer();
+        /** @var QueryBuilderFactoryInterface $queryBuilderFactory */
         $queryBuilderFactory = $container->get(QueryBuilderFactoryInterface::class);
+        $queryBuilder        = $queryBuilderFactory->create();
 
-        $queryBuilder = $queryBuilderFactory->create();
-        $queryBuilder->delete('oxtplblocks', 'tpl')
-            ->where('tpl.oxmodule = :moduleId')
-            ->setParameters([
-                'moduleId' => 'multiordermailreceiver'
-            ]);
+        $queryBuilder->select('oxid')
+                     ->from('oxtplblocks')
+                     ->where('oxmodule = :moduleId')
+                     ->setParameters([
+                         'moduleId' => 'multiordermailreceiver'
+                     ]);
+
+        $row = $queryBuilder->execute()->fetch();
+
+        // deletes are only allowed by primarykey
+        if (count($row) > 0 && array_key_exists('oxid', $row)) {
+            $queryBuilder->delete('oxtplblocks')
+                         ->where('oxid = :id')
+                         ->setParameters([
+                             'id' => $row['oxid']
+                         ]);
+            $queryBuilder->execute();
+        }
     }
 }

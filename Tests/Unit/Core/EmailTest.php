@@ -2,7 +2,6 @@
 
 namespace PaBlo\MultiOrderMailReceiver\Test\Unit\Core;
 
-
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use PaBlo\MultiOrderMailReceiver\Core\Email;
@@ -30,8 +29,8 @@ class EmailTest extends UnitTestCase
         parent::setUp();
 
         $this->SUT = $this->getMockBuilder(Email::class)
-            ->setMethods(['__call'])
-            ->getMock();
+                          ->setMethods(['__call', 'send', 'getRenderer'])
+                          ->getMock();
     }
 
     /**
@@ -168,4 +167,6 @@ class EmailTest extends UnitTestCase
         $result = $reflectedMethod->invokeArgs($this->SUT, ['täst.de']);
         $this->assertSame('xn--tst-qla.de', $result);
     }
+
+
 }
