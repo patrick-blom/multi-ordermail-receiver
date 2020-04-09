@@ -2,7 +2,7 @@
 
 namespace PaBlo\MultiOrderMailReceiver\Test\Unit\Core;
 
-use OxidEsales\Eshop\Application\Model\Order;
+use OxidEsales\Eshop\Application\Model\Shop;
 use OxidEsales\TestingLibrary\UnitTestCase;
 use PaBlo\MultiOrderMailReceiver\Core\Email;
 
@@ -146,10 +146,10 @@ class EmailTest extends UnitTestCase
         $reflectedSetter = new \ReflectionMethod(Email::class, 'setCarbonCopyActive');
         $reflectedSetter->setAccessible(true);
 
+        $reflectedSetter->invoke($this->SUT);
+
         $reflectedGetter = new \ReflectionMethod(Email::class, 'getCarbonCopyActiveState');
         $reflectedGetter->setAccessible(true);
-
-        $reflectedSetter->invoke($this->SUT);
 
         $internalState = $reflectedGetter->invoke($this->SUT);
         $this->assertTrue($internalState);
@@ -168,5 +168,34 @@ class EmailTest extends UnitTestCase
         $this->assertSame('xn--tst-qla.de', $result);
     }
 
+    /**
+     * @covers \PaBlo\MultiOrderMailReceiver\Core\Email::setFrom
+     * @throws \ReflectionException
+     */
+    public function testSetFrom_willAddCarbonCopyEntries(): void
+    {
+        // add demo carbon copies
+        /** @var Shop $shop */
+        $shop = $this->getConfig()->getActiveShop();
+        $shop->oxshops__pbowneremailreceiver->rawValue = 'foo@bar.com;NOEMAILADDRESS;bar@baz.de';
+        $shop->save();
 
+        // activate carbon copies
+        $reflectedSetter = new \ReflectionMethod(Email::class, 'setCarbonCopyActive');
+        $reflectedSetter->setAccessible(true);
+
+        $reflectedSetter->invoke($this->SUT);
+
+        $result = $this->SUT->setFrom('info@patrick-blom.de');
+        $this->assertTrue($result);
+
+        $carbonCopies = $this->SUT->getCarbonCopy();
+        $this->assertNotEmpty($carbonCopies);
+        $this->assertCount(2, $carbonCopies);
+        $this->assertSame('foo@bar.com',$carbonCopies[0][0]);
+        $this->assertSame('bar@baz.de',$carbonCopies[1][0]);
+        $this->assertSame('order',$carbonCopies[0][1]);
+        $this->assertSame('order',$carbonCopies[1][1]);
+
+    }
 }
