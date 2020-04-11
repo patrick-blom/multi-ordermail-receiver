@@ -18,7 +18,7 @@ admin order mail.
 * The module was built and will work on the OXID eShop Community Edition
 * The module should work on OXID eShop Professional Edition and OXID eShop Enterprise Edition 
 * The module was tested on the OXID eShop Community Edition
-* The module wat **not tested** on OXID eShop Professional Edition and OXID eShop Enterprise Edition 
+* The module was **not tested** on OXID eShop Professional Edition and OXID eShop Enterprise Edition 
 
 
 ### Requirements
