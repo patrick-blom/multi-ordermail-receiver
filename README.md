@@ -28,6 +28,11 @@ admin order mail.
 
 ### Module installation via composer
 
+#### Default installation via packagist (recommend)
+* add the module to your shop composer.json
+    * `composer require patrick-blom/multi-ordermail-receiver`
+
+#### Alternative installation via GitHub (manual)
 * create a new folder called "thirdparty" with the subfolder "pb" at the shop root level (same level as the composer.json)
     * `cd <shop root>`
     * `mkdir -p thirdparty/pb`  
@@ -35,8 +40,8 @@ admin order mail.
     * `git clone git@github.com:patrick-blom/multi-ordermail-receiver.git thirdparty/pb/MultiOrderMailReceiver` 
 * navigate back to the shop root level and add the repository to composer.json
     * `composer config repositories.patrick-blom/multi-ordermail-receiver path thirdparty/pb/MultiOrderMailReceiver`
-* add the module to your shop composer.json
-    * `composer require patrick-blom/multi-ordermail-receiver`
+
+#### OXID eShop module activation (identical for default && alternative installation)
 * prepare the module configuration for eShop 6.2
     * `vendor/bin/oe-console oe:module:install-configuration source/modules/pb/MultiOrderMailReceiver/`
     * `vendor/bin/oe-console oe:module:apply-configuration`
@@ -64,7 +69,7 @@ The testing process should only be done in a development environment or CI pipel
 * Prepare the [OXID Testing Library](https://github.com/OXID-eSales/testing_library) likes described in their repository 
 or use the [oxvm_eshop](https://github.com/OXID-eSales/oxvm_eshop) / [docker-eshop-sdk](https://github.com/OXID-eSales/docker-eshop-sdk)
 * Add `pb/MultiOrderMailReceiver` to the partial module paths in your test_config.yml (e.g: `partial_module_paths: 'pb/MultiOrderMailReceiver'`)
-* Copy the `config.inc.TEST.php.dist` to your shop root and rename it to `config.inc.TEST.php`
+* Copy the `config.inc.TEST.php.dist` from the vendor module directory to your shop root and rename it to `config.inc.TEST.php`
 * Adjust the settings in the `config.inc.TEST.php` to your needs (test database name, error reporting, etc)
 * Modify your `config.inc.php` and ensure that the `config.inc.TEST.php` will be loaded during the tests
 ```php

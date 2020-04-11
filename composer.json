@@ -2,7 +2,7 @@
   "name": "patrick-blom/multi-ordermail-receiver",
   "description": "This is a module for the OXID eShop which extends the amount of admin order mail receivers.",
   "type": "oxideshop-module",
-  "keywords": ["oxid", "modules", "eShop", "emails", "order"],
+  "keywords": ["oxid", "module", "eShop", "emails", "order", "admin","carbon copy"],
   "homepage": "https://www.patrick-blom.de/",
   "version": "1.0",
   "license": [
@@ -18,7 +18,11 @@
     }
   },
   "require": {
-    "php": ">=7.1"
+    "php": ">=7.1",
+    "oxid-esales/oxideshop-ce": "^v6.5.3"
+  },
+  "require-dev": {
+    "oxid-esales/testing-library": "^v7.1.0"
   },
   "autoload": {
     "psr-4": {
