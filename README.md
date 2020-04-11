@@ -40,6 +40,8 @@ admin order mail.
     * `git clone git@github.com:patrick-blom/multi-ordermail-receiver.git thirdparty/pb/MultiOrderMailReceiver` 
 * navigate back to the shop root level and add the repository to composer.json
     * `composer config repositories.patrick-blom/multi-ordermail-receiver path thirdparty/pb/MultiOrderMailReceiver`
+* add the module to your shop composer.json
+    * `composer require patrick-blom/multi-ordermail-receiver`    
 
 #### OXID eShop module activation (identical for default && alternative installation)
 * prepare the module configuration for eShop 6.2
