@@ -30,6 +30,7 @@ admin order mail.
 
 #### Default installation via packagist (recommend)
 * add the module to your shop composer.json
+    * `cd <shop root>`
     * `composer require patrick-blom/multi-ordermail-receiver`
 
 #### Alternative installation via GitHub (manual)
