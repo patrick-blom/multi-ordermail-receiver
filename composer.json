@@ -4,7 +4,6 @@
   "type": "oxideshop-module",
   "keywords": ["oxid", "module", "eShop", "emails", "order", "admin","carbon copy"],
   "homepage": "https://www.patrick-blom.de/",
-  "version": "1.0",
   "license": [
     "GPL-3.0-only"
   ],

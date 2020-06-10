@@ -17,7 +17,7 @@ $aModule = [
         'de' => 'Das Modul erweitert die Anzahl der E-Mailempf&auml;nger f&uuml; Admin-Bestell-E-Mail',
         'en' => 'This module extends the amount of the admin order mail receivers',
     ],
-    'version' => '1.0',
+    'version' => '1.0.2',
     'author' => 'Patrick Blom',
     'url' => 'https://www.patrick-blom.de/',
     'email' => 'info@patrick-blom.de',
