@@ -17,7 +17,7 @@ $aModule = [
         'de' => 'Das Modul erweitert die Anzahl der E-Mailempf&auml;nger f&uuml; Admin-Bestell-E-Mail',
         'en' => 'This module extends the amount of the admin order mail receivers',
     ],
-    'version' => '1.0.2',
+    'version' => '1.1.0',
     'author' => 'Patrick Blom',
     'url' => 'https://www.patrick-blom.de/',
     'email' => 'info@patrick-blom.de',
@@ -28,7 +28,7 @@ $aModule = [
         [
             'template' => 'shop_main.tpl',
             'block' => 'admin_shop_main_leftform',
-            'file' => 'views/admin/blocks/shop_main__admin_shop_main_leftform.tpl'
+            'file' => 'Application/views/admin/blocks/shop_main__admin_shop_main_leftform.tpl'
         ]
     ],
     'events' => [
