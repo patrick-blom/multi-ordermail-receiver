@@ -1,3 +1,9 @@
+[![PHP Version](https://flat.badgen.net/packagist/php/patrick-blom/multi-ordermail-receiver/?cache=300&scale=1.1)](https://github.com/patrick-blom/multi-ordermail-receiver)
+[![Stable Version](https://flat.badgen.net/packagist/v/patrick-blom/multi-ordermail-receiver/latest/?label=latest&cache=300&scale=1.1)](https://packagist.org/packages/patrick-blom/multi-ordermail-receiver)
+[![Package Name](https://flat.badgen.net/packagist/name/patrick-blom/multi-ordermail-receiver/?label=packagename&cache=300&scale=1.1)](https://packagist.org/packages/patrick-blom/multi-ordermail-receiver)
+[![License](https://flat.badgen.net/packagist/license/patrick-blom/multi-ordermail-receiver/?label=license&cache=300&scale=1.1)](https://github.com/patrick-blom/multi-ordermail-receiver/blob/master/LICENSE)
+[![Follow me on twitter](https://flat.badgen.net/twitter/follow/pbl0m/?label=follow-me-on-twitter&cache=300&scale=1.1)](https://twitter.com/pbl0m)
+
 Multi-Admin-Order-Mail-Receiver module
 ==================
 
